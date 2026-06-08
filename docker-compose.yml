@@ -1,0 +1,54 @@
+services:
+    postgres:
+        image: postgres:16-alpine
+        container_name: sims-db
+        restart: unless-stopped
+        environment:
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: postgres
+            POSTGRES_DB: sims
+        ports:
+            - '5432:5432'
+        volumes:
+            - postgres_data:/var/lib/postgresql/data
+        networks:
+            - app-network
+
+    #  prisma-migrate:
+    #    build: .
+    #    # Передаём переменные явно
+    #    environment:
+    #      - DATABASE_URL=postgres://postgres:postgres@postgres:5432/map-dev-eao?schema=public
+    #    # Или используй env_file: .env (если файл лежит рядом с compose)
+    #    depends_on:
+    #      postgres:
+    #        condition: service_started
+    #    command: sh -c "npx prisma migrate deploy"
+
+    nextjs:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        container_name: sims
+        restart: unless-stopped
+        environment:
+            - DATABASE_URL=postgres://postgres:postgres@postgres:5432/sims?schema=public
+            - AUTH_SECRET=${AUTH_SECRET:-your-secret-key}
+            #      - DATABASE_URL=${DATABASE_URL}
+            #      - AUTH_SECRET=${AUTH_SECRET}
+            - NODE_ENV=production
+        ports:
+            - '3000:3000'
+        depends_on:
+            - postgres
+        networks:
+            - app-network
+        volumes:
+            - ./prisma:/app/prisma:ro
+
+networks:
+    app-network:
+        driver: bridge
+
+volumes:
+    postgres_data:

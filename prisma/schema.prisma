@@ -1,0 +1,92 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+
+// категории по
+model Category {
+  id          String       @id @default(uuid())
+  name        String
+
+  // ---- связи ----
+  software    Software[]
+}
+
+// Программное обеспечение (Каталог ПО)
+model Software {
+  id          String       @id @default(uuid())
+  name        String    // Название (напр. Adobe Photoshop)
+  developer      String    // Разработчик (напр. Adobe)
+  version     String?   // Версия
+
+  createdAt   DateTime  @default(now())
+
+  // ---- связи ----
+
+  category    Category @relation(references: [id], fields: [categoryId])   // Категория (Графика, Офис, ОС)
+  categoryId  String
+
+  licenses    License[] // Связь с лицензиями
+  installations Installation[] // Где установлено
+}
+
+// Устройства (Где стоит софт)
+model Device {
+  id          String      @id @default(uuid())
+  hostname    String   @unique  // Имя компьютера
+  os          String?           // Операционная система
+  ipAddress   String?
+  department  String?           // Отдел
+  user        String?  
+
+  // ---- связи ----
+  
+  installations Installation[]
+}
+
+// Лицензии (Права на использование)
+model License {
+  id            String      @id @default(uuid())
+  key           String      @unique        // Лицензионный ключ
+  type          String                  // Тип (Subscription, Perpetual, OEM)
+  purchaseDate  DateTime
+  expirationDate DateTime?              // Дата окончания (для подписок)
+  totalSeats    Int      @default(1)    // Общее кол-во мест
+  usedSeats     Int      @default(0)    // Занято мест
+  
+  // ---- связи ----
+
+  softwareId    String
+  software      Software @relation(fields: [softwareId], references: [id], onDelete: Cascade)
+  
+  installations Installation[]
+}
+
+
+// Установки (Связующая таблица - факт наличия ПО на устройстве)
+model Installation {
+  id            String      @id @default(uuid())
+  installedAt   DateTime @default(now())
+  status        String   @default("Active") // Active, Pending, Uninstalled
+
+  softwareId    String
+  software      Software @relation(fields: [softwareId], references: [id], onDelete: Cascade)
+
+  deviceId      String
+  device        Device   @relation(fields: [deviceId], references: [id], onDelete: Cascade)
+
+  licenseId     String?     // Лицензия может быть не привязана (free soft)
+  license       License? @relation(fields: [licenseId], references: [id], onDelete: Cascade)
+
+  @@unique([softwareId, deviceId]) // Предотвращает дубликат установки одного ПО на один ПК
+}
