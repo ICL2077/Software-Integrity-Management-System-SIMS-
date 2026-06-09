@@ -22,9 +22,9 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en" className={`${rubik.variable} h-full antialiased`}>
-            <body>
+            <body className="min-h-screen flex flex-col">
                 <Header />
-                <main className="min-h-screen text-black bg-white  flex flex-col">
+                <main className="flex-1 text-black bg-white flex flex-row">
                     <Aside />
                     {children}
                 </main>
