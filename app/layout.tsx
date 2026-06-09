@@ -26,7 +26,7 @@ export default function RootLayout({
                 <Header />
                 <main className="flex-1 text-black bg-white flex flex-row">
                     <Aside />
-                    {children}
+                    <div className="w-full p-1">{children}</div>
                 </main>
             </body>
         </html>

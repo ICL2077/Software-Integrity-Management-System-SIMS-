@@ -1,7 +1,5 @@
 .containder {
-    width: 247px;
+    width: 250px;
     min-height: 100%;
-    padding: 4px;
-    background-color: white;
     border-right: 1px solid black;
 }
