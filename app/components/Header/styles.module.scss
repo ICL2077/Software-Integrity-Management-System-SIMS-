@@ -1,22 +1,24 @@
 .container {
   display: flex;
+  width: 100%;
   align-items: center;
-  justify-content: center;
   border-bottom: 2px solid black;
   background-color: rgb(220, 220, 220);
+  gap: 10px;
+  padding: 10px;
 }
 .search {
-  margin: 5px;
   display: flex;
   align-items: center;
-  max-width: 300px;
+  width: 250px;
   height: 40px;
-  background-color: rgb(256, 256, 256);
+  background-color: rgb(255, 255, 255);
   border-radius: 5px;
   transition: box-shadow 0.3s;
-
+  overflow: hidden;
   &:focus-within {
     box-shadow: #323232 0px 0px 0px 1px;
+    box-shadow: rgba(0, 0, 0, 0.7) 0px 0px 7px 1px;
   }
 }
 .searchInput {
@@ -27,14 +29,36 @@
   flex: 1;
   outline: none;
   border: none;
-  background: transparent;
 }
 .searchButton {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
   height: 100%;
   width: 40px;
-  background: transparent;
   border: none;
   outline: none;
   cursor: pointer;
   color: #000000;
+}
+
+.notificationButton {
+  margin-left: auto;
+  flex-shrink: 0;
+  border: 1px;
+  padding: 6px;
+  cursor: pointer;
+}
+.iconContainer {
+  flex-shrink: 0;
+  cursor: pointer;
+}
+@media (max-width: 500px) {
+  .search {
+    max-width: 150px;
+  }
+  .searchButton {
+    display: none;
+  }
 }
