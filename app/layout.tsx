@@ -3,6 +3,8 @@ import { Rubik } from 'next/font/google';
 import './globals.css';
 import Header from './components/Header';
 import Aside from './components/Aside';
+import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter';
+import QueryPersistProvider from './providers/queryPersistProvider';
 
 const rubik = Rubik({
     variable: '--font-rubik',
@@ -21,13 +23,17 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <html lang="en" className={`${rubik.variable} h-full antialiased`}>
-            <body className="min-h-screen flex flex-col">
-                <Header />
-                <main className="flex-1 text-black bg-white flex flex-row">
-                    <Aside />
-                    <div className="w-full p-1">{children}</div>
-                </main>
+        <html lang="en" className={`${rubik.variable} antialiased`}>
+            <body className="h-screen flex flex-col">
+                <QueryPersistProvider>
+                    <Header />
+                    <main className="overflow-hidden h-full text-black bg-white flex flex-row">
+                        <AppRouterCacheProvider>
+                            <div className="w-full p-1">{children}</div>
+                            <Aside />
+                        </AppRouterCacheProvider>
+                    </main>
+                </QueryPersistProvider>
             </body>
         </html>
     );
