@@ -24,13 +24,13 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en" className={`${rubik.variable} antialiased`}>
-            <body className="h-screen flex flex-col">
+            <body className="h-screen flex flex-col relative">
                 <QueryPersistProvider>
                     <Header />
                     <main className="overflow-hidden h-full text-black bg-white flex flex-row">
                         <AppRouterCacheProvider>
-                            <div className="w-full p-1">{children}</div>
                             <Aside />
+                            <div className="w-full p-1">{children}</div>
                         </AppRouterCacheProvider>
                     </main>
                 </QueryPersistProvider>
