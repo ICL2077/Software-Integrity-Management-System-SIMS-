@@ -1,4 +1,4 @@
-import { PrismaClient } from '../../generated/prisma/client';
+import { CATEGORIES, PrismaClient } from '../../generated/prisma/client';
 import { PrismaPg } from '@prisma/adapter-pg';
 
 const connectionString = process.env.DATABASE_URL;
@@ -11,24 +11,13 @@ const adapter = new PrismaPg({ connectionString });
 const prisma = new PrismaClient({ adapter });
 
 async function up() {
-    // ── Категории ──────────────────────────────────────────────
-    const category_graphic = await prisma.category.create({
-        data: { name: 'Графический' },
-    });
-    const category_calculating = await prisma.category.create({
-        data: { name: 'Вычисления' },
-    });
-    const category_statistics = await prisma.category.create({
-        data: { name: 'Статистика' },
-    });
-
     // ── ПО ─────────────────────────────────────────────────────
     const photoshop = await prisma.software.create({
         data: {
             name: 'Photoshop',
             developer: 'Adobe',
             version: '25.0.0',
-            categoryId: category_graphic.id,
+            category: CATEGORIES.GRAPHIC,
         },
     });
     const gimp = await prisma.software.create({
@@ -36,7 +25,7 @@ async function up() {
             name: 'GIMP',
             developer: 'GIMP Team',
             version: '2.10.36',
-            categoryId: category_graphic.id,
+            category: CATEGORIES.GRAPHIC,
         },
     });
     const excel = await prisma.software.create({
@@ -44,7 +33,7 @@ async function up() {
             name: 'Excel',
             developer: 'Microsoft',
             version: '16.0.0',
-            categoryId: category_statistics.id,
+            category: CATEGORIES.STATISTICKS,
         },
     });
     const calculator = await prisma.software.create({
@@ -52,7 +41,7 @@ async function up() {
             name: 'Calculator',
             developer: 'BirLab',
             version: '0.3.5',
-            categoryId: category_calculating.id,
+            category: CATEGORIES.CALCULATION,
         },
     });
     const matlab = await prisma.software.create({
@@ -60,7 +49,7 @@ async function up() {
             name: 'MATLAB',
             developer: 'MathWorks',
             version: 'R2024a',
-            categoryId: category_calculating.id,
+            category: CATEGORIES.CALCULATION,
         },
     });
 

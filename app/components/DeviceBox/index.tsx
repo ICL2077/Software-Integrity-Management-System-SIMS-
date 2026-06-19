@@ -20,6 +20,7 @@ export const DeviceBox = () => {
                     user={itm.user}
                     department={itm.department}
                     ipAddress={itm.ipAddress}
+                    height={500}
                 />
             ))}
         </CardContainer>

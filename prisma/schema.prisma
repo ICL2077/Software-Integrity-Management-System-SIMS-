@@ -13,19 +13,10 @@ datasource db {
 }
 
 
-// категории по
-model Category {
-  id          String       @id @default(uuid())
-  name        String
-
-  // ---- связи ----
-  software    Software[]
-}
-
 // Программное обеспечение (Каталог ПО)
 model Software {
   id             String    @id @default(uuid())
-  name           String    // Название (напр. Adobe Photoshop)
+  name           String    @unique // Название (напр. Adobe Photoshop)
   developer      String    // Разработчик (напр. Adobe)
   version        String?   // Версия
 
@@ -33,8 +24,7 @@ model Software {
 
   // ---- связи ----
 
-  category    Category @relation(references: [id], fields: [categoryId])   // Категория (Графика, Офис, ОС)
-  categoryId  String
+  category    CATEGORIES
 
   licenses    License[] // Связь с лицензиями
   installations Installation[] // Где установлено
@@ -88,4 +78,10 @@ model Installation {
   license       License? @relation(fields: [licenseId], references: [id], onDelete: Cascade)
 
   @@unique([softwareId, deviceId]) // Предотвращает дубликат установки одного ПО на один ПК
+}
+
+enum CATEGORIES {
+  GRAPHIC
+  STATISTICKS
+  CALCULATION
 }

@@ -8,7 +8,6 @@
  *
  * 🟢 You can import this file directly.
  */
-export type * from './models/Category'
 export type * from './models/Software'
 export type * from './models/Device'
 export type * from './models/License'

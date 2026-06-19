@@ -30,7 +30,7 @@ export type SoftwareMinAggregateOutputType = {
   developer: string | null
   version: string | null
   createdAt: Date | null
-  categoryId: string | null
+  category: $Enums.CATEGORIES | null
 }
 
 export type SoftwareMaxAggregateOutputType = {
@@ -39,7 +39,7 @@ export type SoftwareMaxAggregateOutputType = {
   developer: string | null
   version: string | null
   createdAt: Date | null
-  categoryId: string | null
+  category: $Enums.CATEGORIES | null
 }
 
 export type SoftwareCountAggregateOutputType = {
@@ -48,7 +48,7 @@ export type SoftwareCountAggregateOutputType = {
   developer: number
   version: number
   createdAt: number
-  categoryId: number
+  category: number
   _all: number
 }
 
@@ -59,7 +59,7 @@ export type SoftwareMinAggregateInputType = {
   developer?: true
   version?: true
   createdAt?: true
-  categoryId?: true
+  category?: true
 }
 
 export type SoftwareMaxAggregateInputType = {
@@ -68,7 +68,7 @@ export type SoftwareMaxAggregateInputType = {
   developer?: true
   version?: true
   createdAt?: true
-  categoryId?: true
+  category?: true
 }
 
 export type SoftwareCountAggregateInputType = {
@@ -77,7 +77,7 @@ export type SoftwareCountAggregateInputType = {
   developer?: true
   version?: true
   createdAt?: true
-  categoryId?: true
+  category?: true
   _all?: true
 }
 
@@ -159,7 +159,7 @@ export type SoftwareGroupByOutputType = {
   developer: string
   version: string | null
   createdAt: Date
-  categoryId: string
+  category: $Enums.CATEGORIES
   _count: SoftwareCountAggregateOutputType | null
   _min: SoftwareMinAggregateOutputType | null
   _max: SoftwareMaxAggregateOutputType | null
@@ -189,8 +189,7 @@ export type SoftwareWhereInput = {
   developer?: Prisma.StringFilter<"Software"> | string
   version?: Prisma.StringNullableFilter<"Software"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Software"> | Date | string
-  categoryId?: Prisma.StringFilter<"Software"> | string
-  category?: Prisma.XOR<Prisma.CategoryScalarRelationFilter, Prisma.CategoryWhereInput>
+  category?: Prisma.EnumCATEGORIESFilter<"Software"> | $Enums.CATEGORIES
   licenses?: Prisma.LicenseListRelationFilter
   installations?: Prisma.InstallationListRelationFilter
 }
@@ -201,26 +200,24 @@ export type SoftwareOrderByWithRelationInput = {
   developer?: Prisma.SortOrder
   version?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  categoryId?: Prisma.SortOrder
-  category?: Prisma.CategoryOrderByWithRelationInput
+  category?: Prisma.SortOrder
   licenses?: Prisma.LicenseOrderByRelationAggregateInput
   installations?: Prisma.InstallationOrderByRelationAggregateInput
 }
 
 export type SoftwareWhereUniqueInput = Prisma.AtLeast<{
   id?: string
+  name?: string
   AND?: Prisma.SoftwareWhereInput | Prisma.SoftwareWhereInput[]
   OR?: Prisma.SoftwareWhereInput[]
   NOT?: Prisma.SoftwareWhereInput | Prisma.SoftwareWhereInput[]
-  name?: Prisma.StringFilter<"Software"> | string
   developer?: Prisma.StringFilter<"Software"> | string
   version?: Prisma.StringNullableFilter<"Software"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Software"> | Date | string
-  categoryId?: Prisma.StringFilter<"Software"> | string
-  category?: Prisma.XOR<Prisma.CategoryScalarRelationFilter, Prisma.CategoryWhereInput>
+  category?: Prisma.EnumCATEGORIESFilter<"Software"> | $Enums.CATEGORIES
   licenses?: Prisma.LicenseListRelationFilter
   installations?: Prisma.InstallationListRelationFilter
-}, "id">
+}, "id" | "name">
 
 export type SoftwareOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -228,7 +225,7 @@ export type SoftwareOrderByWithAggregationInput = {
   developer?: Prisma.SortOrder
   version?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  categoryId?: Prisma.SortOrder
+  category?: Prisma.SortOrder
   _count?: Prisma.SoftwareCountOrderByAggregateInput
   _max?: Prisma.SoftwareMaxOrderByAggregateInput
   _min?: Prisma.SoftwareMinOrderByAggregateInput
@@ -243,7 +240,7 @@ export type SoftwareScalarWhereWithAggregatesInput = {
   developer?: Prisma.StringWithAggregatesFilter<"Software"> | string
   version?: Prisma.StringNullableWithAggregatesFilter<"Software"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Software"> | Date | string
-  categoryId?: Prisma.StringWithAggregatesFilter<"Software"> | string
+  category?: Prisma.EnumCATEGORIESWithAggregatesFilter<"Software"> | $Enums.CATEGORIES
 }
 
 export type SoftwareCreateInput = {
@@ -252,7 +249,7 @@ export type SoftwareCreateInput = {
   developer: string
   version?: string | null
   createdAt?: Date | string
-  category: Prisma.CategoryCreateNestedOneWithoutSoftwareInput
+  category: $Enums.CATEGORIES
   licenses?: Prisma.LicenseCreateNestedManyWithoutSoftwareInput
   installations?: Prisma.InstallationCreateNestedManyWithoutSoftwareInput
 }
@@ -263,7 +260,7 @@ export type SoftwareUncheckedCreateInput = {
   developer: string
   version?: string | null
   createdAt?: Date | string
-  categoryId: string
+  category: $Enums.CATEGORIES
   licenses?: Prisma.LicenseUncheckedCreateNestedManyWithoutSoftwareInput
   installations?: Prisma.InstallationUncheckedCreateNestedManyWithoutSoftwareInput
 }
@@ -274,7 +271,7 @@ export type SoftwareUpdateInput = {
   developer?: Prisma.StringFieldUpdateOperationsInput | string
   version?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  category?: Prisma.CategoryUpdateOneRequiredWithoutSoftwareNestedInput
+  category?: Prisma.EnumCATEGORIESFieldUpdateOperationsInput | $Enums.CATEGORIES
   licenses?: Prisma.LicenseUpdateManyWithoutSoftwareNestedInput
   installations?: Prisma.InstallationUpdateManyWithoutSoftwareNestedInput
 }
@@ -285,7 +282,7 @@ export type SoftwareUncheckedUpdateInput = {
   developer?: Prisma.StringFieldUpdateOperationsInput | string
   version?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  categoryId?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.EnumCATEGORIESFieldUpdateOperationsInput | $Enums.CATEGORIES
   licenses?: Prisma.LicenseUncheckedUpdateManyWithoutSoftwareNestedInput
   installations?: Prisma.InstallationUncheckedUpdateManyWithoutSoftwareNestedInput
 }
@@ -296,7 +293,7 @@ export type SoftwareCreateManyInput = {
   developer: string
   version?: string | null
   createdAt?: Date | string
-  categoryId: string
+  category: $Enums.CATEGORIES
 }
 
 export type SoftwareUpdateManyMutationInput = {
@@ -305,6 +302,7 @@ export type SoftwareUpdateManyMutationInput = {
   developer?: Prisma.StringFieldUpdateOperationsInput | string
   version?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  category?: Prisma.EnumCATEGORIESFieldUpdateOperationsInput | $Enums.CATEGORIES
 }
 
 export type SoftwareUncheckedUpdateManyInput = {
@@ -313,17 +311,7 @@ export type SoftwareUncheckedUpdateManyInput = {
   developer?: Prisma.StringFieldUpdateOperationsInput | string
   version?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  categoryId?: Prisma.StringFieldUpdateOperationsInput | string
-}
-
-export type SoftwareListRelationFilter = {
-  every?: Prisma.SoftwareWhereInput
-  some?: Prisma.SoftwareWhereInput
-  none?: Prisma.SoftwareWhereInput
-}
-
-export type SoftwareOrderByRelationAggregateInput = {
-  _count?: Prisma.SortOrder
+  category?: Prisma.EnumCATEGORIESFieldUpdateOperationsInput | $Enums.CATEGORIES
 }
 
 export type SoftwareCountOrderByAggregateInput = {
@@ -332,7 +320,7 @@ export type SoftwareCountOrderByAggregateInput = {
   developer?: Prisma.SortOrder
   version?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  categoryId?: Prisma.SortOrder
+  category?: Prisma.SortOrder
 }
 
 export type SoftwareMaxOrderByAggregateInput = {
@@ -341,7 +329,7 @@ export type SoftwareMaxOrderByAggregateInput = {
   developer?: Prisma.SortOrder
   version?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  categoryId?: Prisma.SortOrder
+  category?: Prisma.SortOrder
 }
 
 export type SoftwareMinOrderByAggregateInput = {
@@ -350,7 +338,7 @@ export type SoftwareMinOrderByAggregateInput = {
   developer?: Prisma.SortOrder
   version?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  categoryId?: Prisma.SortOrder
+  category?: Prisma.SortOrder
 }
 
 export type SoftwareScalarRelationFilter = {
@@ -358,46 +346,8 @@ export type SoftwareScalarRelationFilter = {
   isNot?: Prisma.SoftwareWhereInput
 }
 
-export type SoftwareCreateNestedManyWithoutCategoryInput = {
-  create?: Prisma.XOR<Prisma.SoftwareCreateWithoutCategoryInput, Prisma.SoftwareUncheckedCreateWithoutCategoryInput> | Prisma.SoftwareCreateWithoutCategoryInput[] | Prisma.SoftwareUncheckedCreateWithoutCategoryInput[]
-  connectOrCreate?: Prisma.SoftwareCreateOrConnectWithoutCategoryInput | Prisma.SoftwareCreateOrConnectWithoutCategoryInput[]
-  createMany?: Prisma.SoftwareCreateManyCategoryInputEnvelope
-  connect?: Prisma.SoftwareWhereUniqueInput | Prisma.SoftwareWhereUniqueInput[]
-}
-
-export type SoftwareUncheckedCreateNestedManyWithoutCategoryInput = {
-  create?: Prisma.XOR<Prisma.SoftwareCreateWithoutCategoryInput, Prisma.SoftwareUncheckedCreateWithoutCategoryInput> | Prisma.SoftwareCreateWithoutCategoryInput[] | Prisma.SoftwareUncheckedCreateWithoutCategoryInput[]
-  connectOrCreate?: Prisma.SoftwareCreateOrConnectWithoutCategoryInput | Prisma.SoftwareCreateOrConnectWithoutCategoryInput[]
-  createMany?: Prisma.SoftwareCreateManyCategoryInputEnvelope
-  connect?: Prisma.SoftwareWhereUniqueInput | Prisma.SoftwareWhereUniqueInput[]
-}
-
-export type SoftwareUpdateManyWithoutCategoryNestedInput = {
-  create?: Prisma.XOR<Prisma.SoftwareCreateWithoutCategoryInput, Prisma.SoftwareUncheckedCreateWithoutCategoryInput> | Prisma.SoftwareCreateWithoutCategoryInput[] | Prisma.SoftwareUncheckedCreateWithoutCategoryInput[]
-  connectOrCreate?: Prisma.SoftwareCreateOrConnectWithoutCategoryInput | Prisma.SoftwareCreateOrConnectWithoutCategoryInput[]
-  upsert?: Prisma.SoftwareUpsertWithWhereUniqueWithoutCategoryInput | Prisma.SoftwareUpsertWithWhereUniqueWithoutCategoryInput[]
-  createMany?: Prisma.SoftwareCreateManyCategoryInputEnvelope
-  set?: Prisma.SoftwareWhereUniqueInput | Prisma.SoftwareWhereUniqueInput[]
-  disconnect?: Prisma.SoftwareWhereUniqueInput | Prisma.SoftwareWhereUniqueInput[]
-  delete?: Prisma.SoftwareWhereUniqueInput | Prisma.SoftwareWhereUniqueInput[]
-  connect?: Prisma.SoftwareWhereUniqueInput | Prisma.SoftwareWhereUniqueInput[]
-  update?: Prisma.SoftwareUpdateWithWhereUniqueWithoutCategoryInput | Prisma.SoftwareUpdateWithWhereUniqueWithoutCategoryInput[]
-  updateMany?: Prisma.SoftwareUpdateManyWithWhereWithoutCategoryInput | Prisma.SoftwareUpdateManyWithWhereWithoutCategoryInput[]
-  deleteMany?: Prisma.SoftwareScalarWhereInput | Prisma.SoftwareScalarWhereInput[]
-}
-
-export type SoftwareUncheckedUpdateManyWithoutCategoryNestedInput = {
-  create?: Prisma.XOR<Prisma.SoftwareCreateWithoutCategoryInput, Prisma.SoftwareUncheckedCreateWithoutCategoryInput> | Prisma.SoftwareCreateWithoutCategoryInput[] | Prisma.SoftwareUncheckedCreateWithoutCategoryInput[]
-  connectOrCreate?: Prisma.SoftwareCreateOrConnectWithoutCategoryInput | Prisma.SoftwareCreateOrConnectWithoutCategoryInput[]
-  upsert?: Prisma.SoftwareUpsertWithWhereUniqueWithoutCategoryInput | Prisma.SoftwareUpsertWithWhereUniqueWithoutCategoryInput[]
-  createMany?: Prisma.SoftwareCreateManyCategoryInputEnvelope
-  set?: Prisma.SoftwareWhereUniqueInput | Prisma.SoftwareWhereUniqueInput[]
-  disconnect?: Prisma.SoftwareWhereUniqueInput | Prisma.SoftwareWhereUniqueInput[]
-  delete?: Prisma.SoftwareWhereUniqueInput | Prisma.SoftwareWhereUniqueInput[]
-  connect?: Prisma.SoftwareWhereUniqueInput | Prisma.SoftwareWhereUniqueInput[]
-  update?: Prisma.SoftwareUpdateWithWhereUniqueWithoutCategoryInput | Prisma.SoftwareUpdateWithWhereUniqueWithoutCategoryInput[]
-  updateMany?: Prisma.SoftwareUpdateManyWithWhereWithoutCategoryInput | Prisma.SoftwareUpdateManyWithWhereWithoutCategoryInput[]
-  deleteMany?: Prisma.SoftwareScalarWhereInput | Prisma.SoftwareScalarWhereInput[]
+export type StringFieldUpdateOperationsInput = {
+  set?: string
 }
 
 export type NullableStringFieldUpdateOperationsInput = {
@@ -406,6 +356,10 @@ export type NullableStringFieldUpdateOperationsInput = {
 
 export type DateTimeFieldUpdateOperationsInput = {
   set?: Date | string
+}
+
+export type EnumCATEGORIESFieldUpdateOperationsInput = {
+  set?: $Enums.CATEGORIES
 }
 
 export type SoftwareCreateNestedOneWithoutLicensesInput = {
@@ -436,71 +390,13 @@ export type SoftwareUpdateOneRequiredWithoutInstallationsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.SoftwareUpdateToOneWithWhereWithoutInstallationsInput, Prisma.SoftwareUpdateWithoutInstallationsInput>, Prisma.SoftwareUncheckedUpdateWithoutInstallationsInput>
 }
 
-export type SoftwareCreateWithoutCategoryInput = {
-  id?: string
-  name: string
-  developer: string
-  version?: string | null
-  createdAt?: Date | string
-  licenses?: Prisma.LicenseCreateNestedManyWithoutSoftwareInput
-  installations?: Prisma.InstallationCreateNestedManyWithoutSoftwareInput
-}
-
-export type SoftwareUncheckedCreateWithoutCategoryInput = {
-  id?: string
-  name: string
-  developer: string
-  version?: string | null
-  createdAt?: Date | string
-  licenses?: Prisma.LicenseUncheckedCreateNestedManyWithoutSoftwareInput
-  installations?: Prisma.InstallationUncheckedCreateNestedManyWithoutSoftwareInput
-}
-
-export type SoftwareCreateOrConnectWithoutCategoryInput = {
-  where: Prisma.SoftwareWhereUniqueInput
-  create: Prisma.XOR<Prisma.SoftwareCreateWithoutCategoryInput, Prisma.SoftwareUncheckedCreateWithoutCategoryInput>
-}
-
-export type SoftwareCreateManyCategoryInputEnvelope = {
-  data: Prisma.SoftwareCreateManyCategoryInput | Prisma.SoftwareCreateManyCategoryInput[]
-  skipDuplicates?: boolean
-}
-
-export type SoftwareUpsertWithWhereUniqueWithoutCategoryInput = {
-  where: Prisma.SoftwareWhereUniqueInput
-  update: Prisma.XOR<Prisma.SoftwareUpdateWithoutCategoryInput, Prisma.SoftwareUncheckedUpdateWithoutCategoryInput>
-  create: Prisma.XOR<Prisma.SoftwareCreateWithoutCategoryInput, Prisma.SoftwareUncheckedCreateWithoutCategoryInput>
-}
-
-export type SoftwareUpdateWithWhereUniqueWithoutCategoryInput = {
-  where: Prisma.SoftwareWhereUniqueInput
-  data: Prisma.XOR<Prisma.SoftwareUpdateWithoutCategoryInput, Prisma.SoftwareUncheckedUpdateWithoutCategoryInput>
-}
-
-export type SoftwareUpdateManyWithWhereWithoutCategoryInput = {
-  where: Prisma.SoftwareScalarWhereInput
-  data: Prisma.XOR<Prisma.SoftwareUpdateManyMutationInput, Prisma.SoftwareUncheckedUpdateManyWithoutCategoryInput>
-}
-
-export type SoftwareScalarWhereInput = {
-  AND?: Prisma.SoftwareScalarWhereInput | Prisma.SoftwareScalarWhereInput[]
-  OR?: Prisma.SoftwareScalarWhereInput[]
-  NOT?: Prisma.SoftwareScalarWhereInput | Prisma.SoftwareScalarWhereInput[]
-  id?: Prisma.StringFilter<"Software"> | string
-  name?: Prisma.StringFilter<"Software"> | string
-  developer?: Prisma.StringFilter<"Software"> | string
-  version?: Prisma.StringNullableFilter<"Software"> | string | null
-  createdAt?: Prisma.DateTimeFilter<"Software"> | Date | string
-  categoryId?: Prisma.StringFilter<"Software"> | string
-}
-
 export type SoftwareCreateWithoutLicensesInput = {
   id?: string
   name: string
   developer: string
   version?: string | null
   createdAt?: Date | string
-  category: Prisma.CategoryCreateNestedOneWithoutSoftwareInput
+  category: $Enums.CATEGORIES
   installations?: Prisma.InstallationCreateNestedManyWithoutSoftwareInput
 }
 
@@ -510,7 +406,7 @@ export type SoftwareUncheckedCreateWithoutLicensesInput = {
   developer: string
   version?: string | null
   createdAt?: Date | string
-  categoryId: string
+  category: $Enums.CATEGORIES
   installations?: Prisma.InstallationUncheckedCreateNestedManyWithoutSoftwareInput
 }
 
@@ -536,7 +432,7 @@ export type SoftwareUpdateWithoutLicensesInput = {
   developer?: Prisma.StringFieldUpdateOperationsInput | string
   version?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  category?: Prisma.CategoryUpdateOneRequiredWithoutSoftwareNestedInput
+  category?: Prisma.EnumCATEGORIESFieldUpdateOperationsInput | $Enums.CATEGORIES
   installations?: Prisma.InstallationUpdateManyWithoutSoftwareNestedInput
 }
 
@@ -546,7 +442,7 @@ export type SoftwareUncheckedUpdateWithoutLicensesInput = {
   developer?: Prisma.StringFieldUpdateOperationsInput | string
   version?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  categoryId?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.EnumCATEGORIESFieldUpdateOperationsInput | $Enums.CATEGORIES
   installations?: Prisma.InstallationUncheckedUpdateManyWithoutSoftwareNestedInput
 }
 
@@ -556,7 +452,7 @@ export type SoftwareCreateWithoutInstallationsInput = {
   developer: string
   version?: string | null
   createdAt?: Date | string
-  category: Prisma.CategoryCreateNestedOneWithoutSoftwareInput
+  category: $Enums.CATEGORIES
   licenses?: Prisma.LicenseCreateNestedManyWithoutSoftwareInput
 }
 
@@ -566,7 +462,7 @@ export type SoftwareUncheckedCreateWithoutInstallationsInput = {
   developer: string
   version?: string | null
   createdAt?: Date | string
-  categoryId: string
+  category: $Enums.CATEGORIES
   licenses?: Prisma.LicenseUncheckedCreateNestedManyWithoutSoftwareInput
 }
 
@@ -592,7 +488,7 @@ export type SoftwareUpdateWithoutInstallationsInput = {
   developer?: Prisma.StringFieldUpdateOperationsInput | string
   version?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  category?: Prisma.CategoryUpdateOneRequiredWithoutSoftwareNestedInput
+  category?: Prisma.EnumCATEGORIESFieldUpdateOperationsInput | $Enums.CATEGORIES
   licenses?: Prisma.LicenseUpdateManyWithoutSoftwareNestedInput
 }
 
@@ -602,44 +498,8 @@ export type SoftwareUncheckedUpdateWithoutInstallationsInput = {
   developer?: Prisma.StringFieldUpdateOperationsInput | string
   version?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  categoryId?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.EnumCATEGORIESFieldUpdateOperationsInput | $Enums.CATEGORIES
   licenses?: Prisma.LicenseUncheckedUpdateManyWithoutSoftwareNestedInput
-}
-
-export type SoftwareCreateManyCategoryInput = {
-  id?: string
-  name: string
-  developer: string
-  version?: string | null
-  createdAt?: Date | string
-}
-
-export type SoftwareUpdateWithoutCategoryInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  developer?: Prisma.StringFieldUpdateOperationsInput | string
-  version?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  licenses?: Prisma.LicenseUpdateManyWithoutSoftwareNestedInput
-  installations?: Prisma.InstallationUpdateManyWithoutSoftwareNestedInput
-}
-
-export type SoftwareUncheckedUpdateWithoutCategoryInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  developer?: Prisma.StringFieldUpdateOperationsInput | string
-  version?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  licenses?: Prisma.LicenseUncheckedUpdateManyWithoutSoftwareNestedInput
-  installations?: Prisma.InstallationUncheckedUpdateManyWithoutSoftwareNestedInput
-}
-
-export type SoftwareUncheckedUpdateManyWithoutCategoryInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  developer?: Prisma.StringFieldUpdateOperationsInput | string
-  version?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -688,8 +548,7 @@ export type SoftwareSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   developer?: boolean
   version?: boolean
   createdAt?: boolean
-  categoryId?: boolean
-  category?: boolean | Prisma.CategoryDefaultArgs<ExtArgs>
+  category?: boolean
   licenses?: boolean | Prisma.Software$licensesArgs<ExtArgs>
   installations?: boolean | Prisma.Software$installationsArgs<ExtArgs>
   _count?: boolean | Prisma.SoftwareCountOutputTypeDefaultArgs<ExtArgs>
@@ -701,8 +560,7 @@ export type SoftwareSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   developer?: boolean
   version?: boolean
   createdAt?: boolean
-  categoryId?: boolean
-  category?: boolean | Prisma.CategoryDefaultArgs<ExtArgs>
+  category?: boolean
 }, ExtArgs["result"]["software"]>
 
 export type SoftwareSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -711,8 +569,7 @@ export type SoftwareSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   developer?: boolean
   version?: boolean
   createdAt?: boolean
-  categoryId?: boolean
-  category?: boolean | Prisma.CategoryDefaultArgs<ExtArgs>
+  category?: boolean
 }, ExtArgs["result"]["software"]>
 
 export type SoftwareSelectScalar = {
@@ -721,27 +578,21 @@ export type SoftwareSelectScalar = {
   developer?: boolean
   version?: boolean
   createdAt?: boolean
-  categoryId?: boolean
+  category?: boolean
 }
 
-export type SoftwareOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "developer" | "version" | "createdAt" | "categoryId", ExtArgs["result"]["software"]>
+export type SoftwareOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "developer" | "version" | "createdAt" | "category", ExtArgs["result"]["software"]>
 export type SoftwareInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  category?: boolean | Prisma.CategoryDefaultArgs<ExtArgs>
   licenses?: boolean | Prisma.Software$licensesArgs<ExtArgs>
   installations?: boolean | Prisma.Software$installationsArgs<ExtArgs>
   _count?: boolean | Prisma.SoftwareCountOutputTypeDefaultArgs<ExtArgs>
 }
-export type SoftwareIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  category?: boolean | Prisma.CategoryDefaultArgs<ExtArgs>
-}
-export type SoftwareIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  category?: boolean | Prisma.CategoryDefaultArgs<ExtArgs>
-}
+export type SoftwareIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
+export type SoftwareIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
 
 export type $SoftwarePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Software"
   objects: {
-    category: Prisma.$CategoryPayload<ExtArgs>
     licenses: Prisma.$LicensePayload<ExtArgs>[]
     installations: Prisma.$InstallationPayload<ExtArgs>[]
   }
@@ -751,7 +602,7 @@ export type $SoftwarePayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     developer: string
     version: string | null
     createdAt: Date
-    categoryId: string
+    category: $Enums.CATEGORIES
   }, ExtArgs["result"]["software"]>
   composites: {}
 }
@@ -1146,7 +997,6 @@ readonly fields: SoftwareFieldRefs;
  */
 export interface Prisma__SoftwareClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  category<T extends Prisma.CategoryDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CategoryDefaultArgs<ExtArgs>>): Prisma.Prisma__CategoryClient<runtime.Types.Result.GetResult<Prisma.$CategoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   licenses<T extends Prisma.Software$licensesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Software$licensesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LicensePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   installations<T extends Prisma.Software$installationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Software$installationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$InstallationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
@@ -1183,7 +1033,7 @@ export interface SoftwareFieldRefs {
   readonly developer: Prisma.FieldRef<"Software", 'String'>
   readonly version: Prisma.FieldRef<"Software", 'String'>
   readonly createdAt: Prisma.FieldRef<"Software", 'DateTime'>
-  readonly categoryId: Prisma.FieldRef<"Software", 'String'>
+  readonly category: Prisma.FieldRef<"Software", 'CATEGORIES'>
 }
     
 
@@ -1438,10 +1288,6 @@ export type SoftwareCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extens
    */
   data: Prisma.SoftwareCreateManyInput | Prisma.SoftwareCreateManyInput[]
   skipDuplicates?: boolean
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.SoftwareIncludeCreateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1512,10 +1358,6 @@ export type SoftwareUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extens
    * Limit how many Software to update.
    */
   limit?: number
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.SoftwareIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**

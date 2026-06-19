@@ -11,7 +11,7 @@ export default function DevicePage() {
     if (isLoading || !event)
         return (
             <div className="absolute top-0 bottom-0 left-0 right-0 z-100 bg-gray-300/50 flex justify-center items-center">
-                <CircularProgress aria-label="Loading…" />;
+                <CircularProgress aria-label="Loading…" />
             </div>
         );
 

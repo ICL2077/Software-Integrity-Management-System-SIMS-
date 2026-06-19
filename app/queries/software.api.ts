@@ -1,11 +1,12 @@
-import { useQuery } from '@tanstack/react-query';
+import { Software } from '@/generated/prisma/client';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 
-export const useGetSoftware = () => {
+export const useGetSoftware = (search: string) => {
     return useQuery({
-        queryKey: ['software'],
+        queryKey: ['software', search],
         queryFn: async () => {
-            const { data } = await axios.get('/api/software');
+            const { data } = await axios.get('/api/software', { params: { search: search } });
             return data;
         },
     });
@@ -18,5 +19,11 @@ export const useGetSoftwareById = (id: string) => {
             const { data } = await axios.get(`/api/software/${id}`);
             return data;
         },
+    });
+};
+
+export const usePostSoftware = () => {
+    return useMutation<Software, Error, FormData>({
+        mutationKey: ['addSoftware'],
     });
 };

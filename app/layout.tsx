@@ -5,6 +5,7 @@ import Header from './components/Header';
 import Aside from './components/Aside';
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter';
 import QueryPersistProvider from './providers/queryPersistProvider';
+import React from 'react';
 
 const rubik = Rubik({
     variable: '--font-rubik',
@@ -19,8 +20,10 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
     children,
+    modal,
 }: Readonly<{
     children: React.ReactNode;
+    modal: React.ReactNode;
 }>) {
     return (
         <html lang="en" className={`${rubik.variable} antialiased`}>
@@ -31,6 +34,7 @@ export default function RootLayout({
                         <AppRouterCacheProvider>
                             <Aside />
                             <div className="w-full p-1">{children}</div>
+                            {modal}
                         </AppRouterCacheProvider>
                     </main>
                 </QueryPersistProvider>

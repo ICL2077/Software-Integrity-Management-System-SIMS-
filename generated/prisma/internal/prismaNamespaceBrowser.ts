@@ -51,7 +51,6 @@ export const AnyNull = runtime.AnyNull
 
 
 export const ModelName = {
-  Category: 'Category',
   Software: 'Software',
   Device: 'Device',
   License: 'License',
@@ -74,21 +73,13 @@ export const TransactionIsolationLevel = runtime.makeStrictEnum({
 export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
 
 
-export const CategoryScalarFieldEnum = {
-  id: 'id',
-  name: 'name'
-} as const
-
-export type CategoryScalarFieldEnum = (typeof CategoryScalarFieldEnum)[keyof typeof CategoryScalarFieldEnum]
-
-
 export const SoftwareScalarFieldEnum = {
   id: 'id',
   name: 'name',
   developer: 'developer',
   version: 'version',
   createdAt: 'createdAt',
-  categoryId: 'categoryId'
+  category: 'category'
 } as const
 
 export type SoftwareScalarFieldEnum = (typeof SoftwareScalarFieldEnum)[keyof typeof SoftwareScalarFieldEnum]

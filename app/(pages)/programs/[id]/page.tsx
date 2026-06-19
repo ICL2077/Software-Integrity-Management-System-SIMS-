@@ -2,7 +2,7 @@
 import { redirect, useParams } from 'next/navigation';
 import CircularProgress from '@mui/material/CircularProgress';
 import { useGetSoftwareById } from '../../../queries/software.api';
-import React from 'react';
+import { DeviceCard } from '@/app/components/DeviceCard';
 
 export default function ProgramPage() {
     const { id }: { id: string } = useParams();
@@ -18,9 +18,33 @@ export default function ProgramPage() {
 
     if (isError) redirect('/devices');
 
+    console.log(software);
+
     return (
         <div className="">
             <div className="">Название программы: {software.name}</div>
+            <div className="flex flex-col gap-1">
+                <h1>Компьютеры на которые установленна программа:</h1>
+                <div className="flex flex-row flex-wrap gap-1 w-full h-full">
+                    {software.installations.map((itm) => {
+                        const device = itm.device;
+
+                        return (
+                            <DeviceCard
+                                id={device.id}
+                                key={device.id}
+                                os={device.os}
+                                hostname={device.hostname}
+                                user={device.user}
+                                department={device.department}
+                                ipAddress={device.ipAddress}
+                                width={250}
+                                height={500}
+                            />
+                        );
+                    })}
+                </div>
+            </div>
         </div>
     );
 }

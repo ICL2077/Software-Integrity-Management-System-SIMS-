@@ -5,12 +5,15 @@ import { QueryClient } from '@tanstack/react-query';
 import { PersistQueryClientProvider } from '@tanstack/react-query-persist-client';
 import { createAsyncStoragePersister } from '@tanstack/query-async-storage-persister';
 
+import appMutations from '@/lib/appMutations'
+
 export default function QueryPersistProvider({ children }: { children: React.ReactNode }) {
     const queryClientRef = useRef<QueryClient | null>(null);
     const persisterRef = useRef<ReturnType<typeof createAsyncStoragePersister> | null>(null);
 
     if (!queryClientRef.current) {
         queryClientRef.current = new QueryClient();
+            appMutations(queryClientRef.current)
     }
 
     if (!persisterRef.current) {
@@ -18,6 +21,7 @@ export default function QueryPersistProvider({ children }: { children: React.Rea
             storage: (globalThis as any).localStorage,
         });
     }
+
 
     return (
         <PersistQueryClientProvider
